@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { Menu, X, ChevronUp, ChevronDown, Minus } from 'lucide-react';
 
 const word = "INFORMATYKA 6.0";
@@ -19,6 +20,7 @@ const colleges = [
 ];
 
 export default function Home() {
+  const router = useRouter();
   const [animationStep, setAnimationStep] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -332,7 +334,7 @@ export default function Home() {
               Join us for an exciting series of events, brought to you by the <strong>IEEE Computer Society Kerala Chapter Woman in Computing</strong>. Discover inspiring stories, fresh perspectives, and the latest innovations. It is more than an event - it’s a celebration of ideas, creativity, and the power of community.
             </p>
             <div className="hero-btn-group">
-              <a href="/know-more" className="know-more-btn">
+              <button onClick={() => router.push('/know-more')} className="know-more-btn">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -350,7 +352,7 @@ export default function Home() {
                   <line x1="12" y1="17" x2="12.01" y2="17"/>
                 </svg>
                 <span>Know more about 6.0</span>
-              </a>
+              </button>
 
               <button className="leaderboard-scroll-btn" onClick={scrollToLeaderboard}>
                 <span>current leaderboard</span>

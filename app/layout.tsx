@@ -23,7 +23,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} data-scroll-behavior="smooth">
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (window.sessionStorage && window.sessionStorage.getItem('hasSeenIntro') === 'true') {
+                  document.documentElement.classList.add('has-seen-intro');
+                }
+              } catch (e) {}
+            `
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

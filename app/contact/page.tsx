@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 
-export default function EventsPage() {
+export default function ContactPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -216,28 +216,19 @@ export default function EventsPage() {
           <ul className="nav-links">
             <li><Link href="/" className="nav-link">Home</Link></li>
             <li><Link href="/about" className="nav-link">About</Link></li>
-            <li><Link href="/events" className="nav-link active">Events</Link></li>
-            <li><Link href="/contact" className="nav-link">Contact</Link></li>
+            <li><Link href="/events" className="nav-link">Events</Link></li>
+            <li><Link href="/contact" className="nav-link active">Contact</Link></li>
           </ul>
           <button className="menu-toggle-btn" aria-label="Toggle Menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </header>
 
-        {/* Events Content */}
-        <main className="events-main-container">
-          <div className="section-title-wrapper">
+        {/* Contact Content */}
+        <main className="contact-main-container">
+          <div className="section-title-wrapper" style={{ marginBottom: 0 }}>
             <div className="title-indicator"></div>
-            <h1 className="section-title-text">EVENT</h1>
-          </div>
-          <div className="events-content-block">
-            
-            <h1 className="coming-soon-title">
-              COMING <span className="title-gold">SOON</span>
-            </h1>
-            <Link href="/" className="back-home-btn">
-              Back to Home
-            </Link>
+            <h1 className="section-title-text">CONTACT</h1>
           </div>
         </main>
 

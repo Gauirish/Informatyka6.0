@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Menu, X, ChevronUp, ChevronDown, Minus } from 'lucide-react';
 
 const word = "INFORMATYKA 6.0";
@@ -33,23 +34,37 @@ export default function Home() {
   };
 
   useEffect(() => {
+    // Check if user has already seen the intro animation in this session
+    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
+    if (hasSeenIntro === 'true') {
+      setAnimationStep(4);
+      return;
+    }
+
+    // Set the flag immediately so that any subsequent reload/navigation skips it
+    try {
+      sessionStorage.setItem('hasSeenIntro', 'true');
+    } catch (e) {
+      console.warn('sessionStorage is not available:', e);
+    }
+
     // Stage 1: Trigger immediately (fade in starts)
     setAnimationStep(1);
 
-    // Stage 2: Trigger zoom into the center at 2.0s
+    // Stage 2: Trigger zoom into the center at 2.8s (after 6.0 is fully loaded)
     const zoomTimeout = setTimeout(() => {
       setAnimationStep(2);
-    }, 2000);
+    }, 2800);
 
-    // Stage 3: Fade out intro overlay at 3.3s (after 1.3s of zoom transition)
+    // Stage 3: Fade out intro overlay at 4.1s (after 1.3s of zoom transition)
     const fadeOverlayTimeout = setTimeout(() => {
       setAnimationStep(3);
-    }, 3300);
+    }, 4100);
 
-    // Stage 4: Completely remove overlay at 3.9s (600ms of overlay fade-out)
+    // Stage 4: Completely remove overlay at 4.7s (600ms of overlay fade-out)
     const removeOverlayTimeout = setTimeout(() => {
       setAnimationStep(4);
-    }, 3900);
+    }, 4700);
 
     return () => {
       clearTimeout(zoomTimeout);
@@ -154,11 +169,11 @@ export default function Home() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         
-        let color = 'rgba(233, 196, 106,'; // Primary Gold
-        if (this.colorVal < 0.3) {
-          color = 'rgba(253, 224, 71,'; // Light Gold
-        } else if (this.colorVal < 0.6) {
-          color = 'rgba(196, 157, 68,'; // Darker Gold
+        let color = 'rgba(40, 40, 40,'; // Accent color #282828
+        if (this.colorVal < 0.35) {
+          color = 'rgba(140, 116, 129,'; // Soft Plum-Grey (visible on white)
+        } else if (this.colorVal < 0.7) {
+          color = 'rgba(94, 22, 56,'; // Medium Plum
         }
         
         ctx.fillStyle = color + this.alpha + ')';
@@ -190,7 +205,7 @@ export default function Home() {
         speed: Math.random() * 0.002 + 0.001,
         phase: Math.random() * Math.PI * 2,
         frequency: Math.random() * 0.0025 + 0.0012,
-        color: i % 2 === 0 ? 'rgba(253, 224, 71, 0.09)' : 'rgba(233, 196, 106, 0.1)',
+        color: i % 2 === 0 ? 'rgba(40, 40, 40, 0.08)' : 'rgba(94, 22, 56, 0.05)',
         lineWidth: Math.random() * 1.2 + 0.6
       });
     }
@@ -221,7 +236,7 @@ export default function Home() {
         
         // Add glowing bloom to waving fibers
         ctx.shadowBlur = 5;
-        ctx.shadowColor = '#e9c46a';
+        ctx.shadowColor = '#282828';
         ctx.stroke();
         ctx.shadowBlur = 0; // Reset shadow glow
       });
@@ -311,10 +326,10 @@ export default function Home() {
             })()}
           </div>
           <ul className="nav-links">
-            <li><a href="/" className="nav-link">Home</a></li>
-            <li><a href="/about" className="nav-link">About</a></li>
-            <li><a href="/events" className="nav-link">Events</a></li>
-            <li><a href="#contact" className="nav-link">Contact</a></li>
+            <li><Link href="/" className="nav-link">Home</Link></li>
+            <li><Link href="/about" className="nav-link">About</Link></li>
+            <li><Link href="/events" className="nav-link">Events</Link></li>
+            <li><Link href="/contact" className="nav-link">Contact</Link></li>
           </ul>
           {/* Mobile Menu Button (Hamburger / Morph to Cross) */}
           <button className="menu-toggle-btn" aria-label="Toggle Menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -355,7 +370,7 @@ export default function Home() {
               </button>
 
               <button className="leaderboard-scroll-btn" onClick={scrollToLeaderboard}>
-                <span>current leaderboard</span>
+                <span>Current leaderboard</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -380,9 +395,11 @@ export default function Home() {
 
         {/* Leaderboard Section */}
         <section className="leaderboard-section" id="events">
+          
           <div className="leaderboard-container">
             <h2 className="leaderboard-title">Current Leaderboard</h2>
-            <div className="leaderboard-list">
+            <p className="leaderboard-subheading">Who will claim the top spot?</p>
+            {/* <div className="leaderboard-list">
               {colleges.map((college, index) => (
                 <div key={index} className="leaderboard-card">
                   <div className="leaderboard-rank-wrapper">
@@ -419,16 +436,18 @@ export default function Home() {
                   </div>
                 </div>
               ))}
-            </div>
+            </div>*/}
           </div>
         </section>
+
+
 
         {/* Footer */}
         <footer className="footer-container">
           <hr className="footer-line" />
           <div className="footer-content">
             <span className="footer-left">Copyright @ 2026 - All rights are reserved</span>
-            <span className="footer-right">Made by CSKS 2026</span>
+            <span className="footer-right">Computer Society Kerala Chapter 2026</span>
           </div>
         </footer>
 
@@ -437,16 +456,16 @@ export default function Home() {
         <div className={`mobile-menu-overlay ${isMenuOpen ? 'open' : ''}`}>
           <ul className="overlay-links">
             <li>
-              <a href="/" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Home</a>
+              <Link href="/" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
             </li>
             <li>
-              <a href="/about" className="overlay-link" onClick={() => setIsMenuOpen(false)}>About</a>
+              <Link href="/about" className="overlay-link" onClick={() => setIsMenuOpen(false)}>About</Link>
             </li>
             <li>
-              <a href="/events" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Events</a>
+              <Link href="/events" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Events</Link>
             </li>
             <li>
-              <a href="#contact" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Contact</a>
+              <Link href="/contact" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Contact</Link>
             </li>
           </ul>
         </div>

@@ -3,37 +3,13 @@
 import { useEffect, useState, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function AboutPage() {
-  const [animationStep, setAnimationStep] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  useEffect(() => {
-    // Stage 1: Trigger immediately (fade in starts)
-    setAnimationStep(1);
 
-    // Stage 2: Trigger zoom into the center at 1.0s (faster on subpage)
-    const zoomTimeout = setTimeout(() => {
-      setAnimationStep(2);
-    }, 1000);
-
-    // Stage 3: Fade out intro overlay at 2.3s
-    const fadeOverlayTimeout = setTimeout(() => {
-      setAnimationStep(3);
-    }, 2300);
-
-    // Stage 4: Completely remove overlay at 2.9s
-    const removeOverlayTimeout = setTimeout(() => {
-      setAnimationStep(4);
-    }, 2900);
-
-    return () => {
-      clearTimeout(zoomTimeout);
-      clearTimeout(fadeOverlayTimeout);
-      clearTimeout(removeOverlayTimeout);
-    };
-  }, []);
 
   // Background Particle & Fiber Animation Engine (Shared)
   useEffect(() => {
@@ -125,11 +101,11 @@ export default function AboutPage() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         
-        let color = 'rgba(233, 196, 106,'; // Primary Gold
-        if (this.colorVal < 0.3) {
-          color = 'rgba(253, 224, 71,'; // Light Gold
-        } else if (this.colorVal < 0.6) {
-          color = 'rgba(196, 157, 68,'; // Darker Gold
+        let color = 'rgba(40, 40, 40,'; // Accent color #282828
+        if (this.colorVal < 0.35) {
+          color = 'rgba(140, 116, 129,'; // Soft Plum-Grey (visible on white)
+        } else if (this.colorVal < 0.7) {
+          color = 'rgba(94, 22, 56,'; // Medium Plum
         }
         
         ctx.fillStyle = color + this.alpha + ')';
@@ -160,7 +136,7 @@ export default function AboutPage() {
         speed: Math.random() * 0.0015 + 0.0008,
         phase: Math.random() * Math.PI * 2,
         frequency: Math.random() * 0.002 + 0.001,
-        color: i % 2 === 0 ? 'rgba(253, 224, 71, 0.08)' : 'rgba(233, 196, 106, 0.08)',
+        color: i % 2 === 0 ? 'rgba(40, 40, 40, 0.08)' : 'rgba(94, 22, 56, 0.05)',
         lineWidth: Math.random() * 1.0 + 0.5
       });
     }
@@ -241,10 +217,10 @@ export default function AboutPage() {
             })()}
           </div>
           <ul className="nav-links">
-            <li><a href="/" className="nav-link">Home</a></li>
-            <li><a href="/about" className="nav-link active">About</a></li>
-            <li><a href="/events" className="nav-link">Events</a></li>
-            <li><a href="#contact" className="nav-link">Contact</a></li>
+            <li><Link href="/" className="nav-link">Home</Link></li>
+            <li><Link href="/about" className="nav-link active">About</Link></li>
+            <li><Link href="/events" className="nav-link">Events</Link></li>
+            <li><Link href="/contact" className="nav-link">Contact</Link></li>
           </ul>
           <button className="menu-toggle-btn" aria-label="Toggle Menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -253,9 +229,10 @@ export default function AboutPage() {
 
         {/* About Main Content */}
         <main className="about-main-container">
-          <h1 className="about-main-title">
-            ABOUT 
-          </h1>
+          <div className="section-title-wrapper">
+            <div className="title-indicator"></div>
+            <h1 className="section-title-text">ABOUT</h1>
+          </div>
 
           <div className="about-sections-wrapper">
             {/* Section 1: About IEEE Computer Society */}
@@ -317,16 +294,16 @@ export default function AboutPage() {
         <div className={`mobile-menu-overlay ${isMenuOpen ? 'open' : ''}`}>
           <ul className="overlay-links">
             <li>
-              <a href="/" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Home</a>
+              <Link href="/" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
             </li>
             <li>
-              <a href="/about" className="overlay-link" onClick={() => setIsMenuOpen(false)}>About</a>
+              <Link href="/about" className="overlay-link" onClick={() => setIsMenuOpen(false)}>About</Link>
             </li>
             <li>
-              <a href="/events" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Events</a>
+              <Link href="/events" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Events</Link>
             </li>
             <li>
-              <a href="#contact" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Contact</a>
+              <Link href="/contact" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Contact</Link>
             </li>
           </ul>
         </div>

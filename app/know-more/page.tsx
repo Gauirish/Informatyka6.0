@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
+import Link from 'next/link';
 
 export default function KnowMorePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -97,11 +98,11 @@ export default function KnowMorePage() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         
-        let color = 'rgba(233, 196, 106,'; // Primary Gold
-        if (this.colorVal < 0.3) {
-          color = 'rgba(253, 224, 71,'; // Light Gold
-        } else if (this.colorVal < 0.6) {
-          color = 'rgba(196, 157, 68,'; // Darker Gold
+        let color = 'rgba(40, 40, 40,'; // Accent color #282828
+        if (this.colorVal < 0.35) {
+          color = 'rgba(140, 116, 129,'; // Soft Plum-Grey (visible on white)
+        } else if (this.colorVal < 0.7) {
+          color = 'rgba(94, 22, 56,'; // Medium Plum
         }
         
         ctx.fillStyle = color + this.alpha + ')';
@@ -132,7 +133,7 @@ export default function KnowMorePage() {
         speed: Math.random() * 0.0015 + 0.0008,
         phase: Math.random() * Math.PI * 2,
         frequency: Math.random() * 0.002 + 0.001,
-        color: i % 2 === 0 ? 'rgba(253, 224, 71, 0.08)' : 'rgba(233, 196, 106, 0.08)',
+        color: i % 2 === 0 ? 'rgba(40, 40, 40, 0.08)' : 'rgba(94, 22, 56, 0.05)',
         lineWidth: Math.random() * 1.0 + 0.5
       });
     }
@@ -213,10 +214,10 @@ export default function KnowMorePage() {
             })()}
           </div>
           <ul className="nav-links">
-            <li><a href="/" className="nav-link">Home</a></li>
-            <li><a href="/about" className="nav-link">About</a></li>
-            <li><a href="/events" className="nav-link">Events</a></li>
-            <li><a href="#contact" className="nav-link">Contact</a></li>
+            <li><Link href="/" className="nav-link">Home</Link></li>
+            <li><Link href="/about" className="nav-link">About</Link></li>
+            <li><Link href="/events" className="nav-link">Events</Link></li>
+            <li><Link href="/contact" className="nav-link">Contact</Link></li>
           </ul>
           <button className="menu-toggle-btn" aria-label="Toggle Menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -325,16 +326,16 @@ export default function KnowMorePage() {
         <div className={`mobile-menu-overlay ${isMenuOpen ? 'open' : ''}`}>
           <ul className="overlay-links">
             <li>
-              <a href="/" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Home</a>
+              <Link href="/" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
             </li>
             <li>
-              <a href="/about" className="overlay-link" onClick={() => setIsMenuOpen(false)}>About</a>
+              <Link href="/about" className="overlay-link" onClick={() => setIsMenuOpen(false)}>About</Link>
             </li>
             <li>
-              <a href="/events" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Events</a>
+              <Link href="/events" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Events</Link>
             </li>
             <li>
-              <a href="#contact" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Contact</a>
+              <Link href="/contact" className="overlay-link" onClick={() => setIsMenuOpen(false)}>Contact</Link>
             </li>
           </ul>
         </div>

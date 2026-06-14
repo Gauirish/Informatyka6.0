@@ -1489,5 +1489,69 @@ html.has-seen-intro .landing-container {
   }
 }
 
+/* Unified Mobile Adjustments for Small Screens */
+@media (max-width: 768px) {
+  .nav-header {
+    padding: 0 1.2rem !important;
+    justify-content: space-between !important;
+  }
+  .nav-logo {
+    font-size: 1.4rem !important;
+    justify-content: flex-start !important;
+    margin: 0 !important;
+    flex-wrap: nowrap !important;
+  }
+  .logo-letter {
+    font-size: 1.4rem !important;
+  }
+  .about-main-container,
+  .events-main-container,
+  .contact-main-container,
+  .know-more-container {
+    padding: 100px 1.2rem 4rem 1.2rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-header {
+    padding: 0 1rem !important;
+    left: 8px !important;
+    right: 8px !important;
+    top: 8px !important;
+    height: 60px !important;
+  }
+  .nav-logo {
+    font-size: 1.2rem !important;
+  }
+  .logo-letter {
+    font-size: 1.2rem !important;
+  }
+  .hero-main-title {
+    font-size: 1.9rem !important;
+  }
+  .hero-description {
+    font-size: 0.9rem !important;
+    line-height: 1.55 !important;
+  }
+  .about-main-container,
+  .events-main-container,
+  .contact-main-container,
+  .know-more-container {
+    padding: 90px 1rem 3rem 1rem !important;
+  }
+  .about-card {
+    padding: 1.5rem 1rem !important;
+  }
+  .contact-content-card {
+    padding: 2rem 1.2rem !important;
+  }
+  .timeline-phase-card {
+    padding: 1.5rem 1.2rem !important;
+  }
+  .landing-hero {
+    padding: 90px 0.8rem 2rem 0.8rem !important;
+  }
+}
+
 
 

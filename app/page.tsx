@@ -51,20 +51,20 @@ export default function Home() {
     // Stage 1: Trigger immediately (fade in starts)
     setAnimationStep(1);
 
-    // Stage 2: Trigger zoom into the center at 2.8s (after 6.0 is fully loaded)
+    // Stage 2: Trigger zoom into the center at 2.5s (after 6.0 is fully loaded)
     const zoomTimeout = setTimeout(() => {
       setAnimationStep(2);
-    }, 2800);
+    }, 2500);
 
-    // Stage 3: Fade out intro overlay at 4.1s (after 1.3s of zoom transition)
+    // Stage 3: Fade out intro overlay at 3.8s (after 1.3s of zoom transition)
     const fadeOverlayTimeout = setTimeout(() => {
       setAnimationStep(3);
-    }, 4100);
+    }, 3800);
 
-    // Stage 4: Completely remove overlay at 4.7s (600ms of overlay fade-out)
+    // Stage 4: Completely remove overlay at 4.4s (600ms of overlay fade-out)
     const removeOverlayTimeout = setTimeout(() => {
       setAnimationStep(4);
-    }, 4700);
+    }, 4400);
 
     return () => {
       clearTimeout(zoomTimeout);

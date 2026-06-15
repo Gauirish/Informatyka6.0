@@ -234,14 +234,14 @@ export default function Home() {
         ctx.strokeStyle = fiber.color;
         ctx.lineWidth = fiber.lineWidth;
         
-        // Add glowing bloom to waving fibers
+        
         ctx.shadowBlur = 5;
         ctx.shadowColor = '#282828';
         ctx.stroke();
-        ctx.shadowBlur = 0; // Reset shadow glow
+        ctx.shadowBlur = 0; 
       });
 
-      // Update & draw drifting particles
+    
       particles.forEach((p) => {
         p.update();
         p.draw();

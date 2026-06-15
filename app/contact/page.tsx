@@ -1,11 +1,48 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Mail, Phone } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
+
+const teamMembers = [
+  {
+    name: 'Prof. Sarju S',
+    role: 'Chairperson, IEEE CS Kerala Chapter',
+    image: '/sarju_rect.png',
+    email: 'sgauiri@gmail.com',
+    phone: '+91 94472 33663',
+    rawPhone: '+919447233663',
+  },
+  {
+    name: 'Sreehari S',
+    role: 'Student Representative, IEEE CS Kerala Chapter',
+    image: '/sreehari_rect.png',
+    email: 'sgauiri@gmail.com',
+    phone: '+91 90745 80336',
+    rawPhone: '+919074580336',
+  },
+  {
+    name: 'Asiya Shaji',
+    role: 'Travancore HSR, IEEE CS Kerala Chapter',
+    image: '/asiya_rect.png',
+    email: 'sgauiri@gmail.com',
+    phone: '+91 99618 55665',
+    rawPhone: '+919961855665',
+  },
+  {
+    name: 'Parvathy V Nair',
+    role: 'WIC, IEEE CS Kerala Chapter',
+    image: '/parvathy_rect.png',
+    email: 'sgauiri@gmail.com',
+    phone: '+91 92078 97197',
+    rawPhone: '+919207897197',
+  },
+];
 
 export default function ContactPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [toast, setToast] = useState<{ show: boolean; message: string }>({ show: false, message: '' });
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Background Particle & Fiber Animation Engine (Shared)
@@ -179,6 +216,30 @@ export default function ContactPage() {
     };
   }, []);
 
+  const showPhoneToast = (name: string, phone: string) => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(phone).catch(() => {});
+      setToast({
+        show: true,
+        message: `${name}'s number: ${phone} (Copied)`,
+      });
+    } else {
+      setToast({
+        show: true,
+        message: `${name}'s number: ${phone}`,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (toast.show) {
+      const timer = setTimeout(() => {
+        setToast({ show: false, message: '' });
+      }, 3500);
+      return () => clearTimeout(timer);
+    }
+  }, [toast.show]);
+
   return (
     <>
       <div className="landing-container visible">
@@ -226,9 +287,49 @@ export default function ContactPage() {
 
         {/* Contact Content */}
         <main className="contact-main-container">
-          <div className="section-title-wrapper" style={{ marginBottom: 0 }}>
+          <div className="section-title-wrapper">
             <div className="title-indicator"></div>
             <h1 className="section-title-text">CONTACT</h1>
+          </div>
+
+          <div className="contact-cards-grid">
+            {teamMembers.map((member, index) => (
+              <div key={index} className="contact-profile-card">
+                <div className="contact-avatar-wrapper">
+                  <Image 
+                    src={member.image} 
+                    alt={member.name} 
+                    width={120} 
+                    height={140} 
+                    className="contact-avatar"
+                    priority
+                  />
+                </div>
+                <h2 className="contact-card-name">{member.name}</h2>
+                <p className="contact-card-role">{member.role}</p>
+                <div className="contact-card-actions">
+                  <a href={`mailto:${member.email}`} className="contact-card-btn contact-btn-email">
+                    <Mail size={16} />
+                    <span>Email</span>
+                  </a>
+                  <a 
+                    href={`tel:${member.rawPhone}`} 
+                    className="contact-card-btn contact-btn-phone"
+                    onClick={(e) => {
+                      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+                        || (window.innerWidth <= 768);
+                      if (!isMobile) {
+                        e.preventDefault();
+                        showPhoneToast(member.name, member.phone);
+                      }
+                    }}
+                  >
+                    <Phone size={16} />
+                    <span>Contact</span>
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </main>
 
@@ -240,6 +341,14 @@ export default function ContactPage() {
             <span className="footer-right">Made by CSKS 2026</span>
           </div>
         </footer>
+
+        {/* Custom Premium Toast Message Bar */}
+        <div className={`contact-toast ${toast.show ? 'show' : ''}`}>
+          <div className="contact-toast-content">
+            <span className="toast-icon">📞</span>
+            <span className="toast-text">{toast.message}</span>
+          </div>
+        </div>
 
         {/* Mobile Full-Screen Menu Overlay */}
         <div className={`mobile-menu-overlay ${isMenuOpen ? 'open' : ''}`}>

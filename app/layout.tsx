@@ -12,9 +12,47 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Informatyka 6.0",
-  description: "A fun and engaging event by IEEE CSKS 2026",
+export const metadata = {
+  title: "Informatyka 6.0 | IEEE Computer Society Kerala Section",
+  description:
+    "Informatyka 6.0 is a premier technology and innovation event organized by IEEE Computer Society Kerala Section. Explore workshops, competitions, speakers, and technical sessions.",
+
+  keywords: [
+    "Informatyka",
+    "Informatyka 6.0",
+    "IEEE",
+    "IEEE Computer Society",
+    "IEEE Kerala Section",
+    "Computer Society Kerala",
+    "Technology Event Kerala",
+    "Tech Fest Kerala",
+    "IEEE Event",
+    "Student Technology Event",
+    "Programming Competition",
+    "Hackathon Kerala",
+    "Innovation Event",
+    "Engineering Students Kerala",
+    "Computer Science Event",
+    "Technical Workshop",
+    "Software Development",
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Cyber Security",
+    "Web Development",
+    "Tech Conference",
+    "Engineering Event India",
+    "Student Innovation",
+    "Technology Community"
+  ],
+
+  openGraph: {
+    title: "Informatyka 6.0",
+    description:
+      "Official website of Informatyka 6.0 - Technology and Innovation Event.",
+    url: "https://informatyka6-0.vercel.app",
+    siteName: "Informatyka 6.0",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

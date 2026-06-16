@@ -23,6 +23,7 @@ const colleges = [
 export default function Home() {
   const router = useRouter();
   const [animationStep, setAnimationStep] = useState(0);
+  const [shouldStartCanvas, setShouldStartCanvas] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -38,6 +39,7 @@ export default function Home() {
     const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
     if (hasSeenIntro === 'true') {
       setAnimationStep(4);
+      setShouldStartCanvas(true);
       return;
     }
 
@@ -59,6 +61,7 @@ export default function Home() {
     // Stage 3: Fade out intro overlay at 3.8s (after 1.3s of zoom transition)
     const fadeOverlayTimeout = setTimeout(() => {
       setAnimationStep(3);
+      setShouldStartCanvas(true);
     }, 3800);
 
     // Stage 4: Completely remove overlay at 4.4s (600ms of overlay fade-out)
@@ -75,6 +78,8 @@ export default function Home() {
 
   // Background Particle & Fiber Animation Engine
   useEffect(() => {
+    if (!shouldStartCanvas) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -260,7 +265,7 @@ export default function Home() {
       window.removeEventListener('mouseleave', handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [shouldStartCanvas]);
 
   // CSS variables for zoom animation inline styles
   const introOverlayClass = `intro-overlay 
@@ -301,7 +306,7 @@ export default function Home() {
           <div className="nav-logo">
             {(() => {
               let delayIndex = 0;
-              return "Informatyka 6.0".split('').map((char, index) => {
+              return "INFORMATYKA 6.0".split('').map((char, index) => {
                 const isSpace = char === ' ';
                 if (isSpace) {
                   return (
@@ -346,7 +351,7 @@ export default function Home() {
               INFORMATYKA <span className="title-gold">6.0</span>
             </h1>
             <p className="hero-description">
-              Join us for an exciting series of events, brought to you by the <strong>IEEE Computer Society Kerala Chapter Woman in Computing</strong>. Discover inspiring stories, fresh perspectives, and the latest innovations. It is more than an event - it’s a celebration of ideas, creativity, and the power of community.
+              Join us for an exciting series of events, brought to you by the <strong>IEEE Computer Society Kerala Chapter Women in Computing</strong>. Discover inspiring stories, fresh perspectives, and the latest innovations. It is more than an event - it’s a celebration of ideas, creativity, and the power of community.
             </p>
             <div className="hero-btn-group">
               <button onClick={() => router.push('/know-more')} className="know-more-btn">
@@ -447,7 +452,7 @@ export default function Home() {
           <hr className="footer-line" />
           <div className="footer-content">
             <span className="footer-left">Copyright @ 2026 - All rights are reserved</span>
-            <span className="footer-right">Computer Society Kerala Chapter 2026</span>
+            <span className="footer-right">IEEE Computer Society Kerala Chapter 2026</span>
           </div>
         </footer>
 

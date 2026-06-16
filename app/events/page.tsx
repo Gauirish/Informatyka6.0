@@ -189,7 +189,7 @@ export default function EventsPage() {
           <div className="nav-logo">
             {(() => {
               let delayIndex = 0;
-              return "Informatyka 6.0".split('').map((char, index) => {
+              return "INFORMATYKA 6.0".split('').map((char, index) => {
                 const isSpace = char === ' ';
                 if (isSpace) {
                   return (
@@ -246,7 +246,7 @@ export default function EventsPage() {
           <hr className="footer-line" />
           <div className="footer-content">
             <span className="footer-left">Copyright @ 2026 - All rights are reserved</span>
-            <span className="footer-right">Made by CSKS 2026</span>
+            <span className="footer-right">IEEE Computer Society Kerala Chapter 2026</span>
           </div>
         </footer>
 

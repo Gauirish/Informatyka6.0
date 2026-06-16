@@ -23,7 +23,6 @@ const colleges = [
 export default function Home() {
   const router = useRouter();
   const [animationStep, setAnimationStep] = useState(0);
-  const [shouldStartCanvas, setShouldStartCanvas] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -39,7 +38,6 @@ export default function Home() {
     const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
     if (hasSeenIntro === 'true') {
       setAnimationStep(4);
-      setShouldStartCanvas(true);
       return;
     }
 
@@ -61,7 +59,6 @@ export default function Home() {
     // Stage 3: Fade out intro overlay at 3.8s (after 1.3s of zoom transition)
     const fadeOverlayTimeout = setTimeout(() => {
       setAnimationStep(3);
-      setShouldStartCanvas(true);
     }, 3800);
 
     // Stage 4: Completely remove overlay at 4.4s (600ms of overlay fade-out)
@@ -78,8 +75,6 @@ export default function Home() {
 
   // Background Particle & Fiber Animation Engine
   useEffect(() => {
-    if (!shouldStartCanvas) return;
-
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -265,7 +260,7 @@ export default function Home() {
       window.removeEventListener('mouseleave', handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [shouldStartCanvas]);
+  }, []);
 
   // CSS variables for zoom animation inline styles
   const introOverlayClass = `intro-overlay 

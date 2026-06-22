@@ -23,6 +23,14 @@ const teamMembers = [
     rawPhone: '+919074580336',
   },
   {
+    name: 'Parvathy V Nair',
+    role: 'WIC, IEEE CS Kerala Chapter',
+    image: '/parvathy_rect.png',
+    email: 'parvathyvnair@ieee.org',
+    phone: '+91 92078 97197',
+    rawPhone: '+919207897197',
+  },
+  {
     name: 'Asiya Shaji',
     role: 'Travancore HSR, IEEE CS Kerala Chapter',
     image: '/asiya_rect.png',
@@ -45,14 +53,6 @@ const teamMembers = [
     email: 'alwinreji2931@gmail.com',
     phone: '+91 95449 46866',
     rawPhone: '+919544946866',
-  },
-  {
-    name: 'Parvathy V Nair',
-    role: 'WIC, IEEE CS Kerala Chapter',
-    image: '/parvathy_rect.png',
-    email: 'parvathyvnair@ieee.org',
-    phone: '+91 92078 97197',
-    rawPhone: '+919207897197',
   },
 ];
 

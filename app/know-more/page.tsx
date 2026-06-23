@@ -252,7 +252,7 @@ export default function KnowMorePage() {
                 <span className="phase-date">June 2026</span>
               </div>
               <ul className="phase-milestones">
-                <li><strong>June 16:</strong> Official Section-wide Kickoff of Informatyka 6.0.</li>
+                <li><strong>June 23:</strong> Official Section-wide Kickoff of Informatyka 6.0.</li>
                 <li><strong>June 30:</strong> Mandatory execution of exactly one introductory, orientation, or brand-onboarding event by every participating Student Branch Chapter.</li>
               </ul>
             </div>
